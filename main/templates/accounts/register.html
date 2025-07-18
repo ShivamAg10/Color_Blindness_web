@@ -1,0 +1,347 @@
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sign Up – Colour Vision App</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f8f9fa;
+      color: #333;
+    }
+
+    /* Navbar */
+    nav {
+      background-color: #004d7a;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-logo {
+      color: white;
+      font-size: 1.5rem;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      margin-left: 20px;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: #ffd700;
+    }
+
+    /* Signup Container */
+    .signup-container {
+      background-color: #ffffff;
+      padding: 40px 30px;
+      border-radius: 16px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 450px;
+      text-align: center;
+      margin: 80px auto;
+    }
+
+    .signup-container h2 {
+      color: #004d7a;
+      margin-bottom: 20px;
+      font-size: 2rem;
+    }
+
+    .signup-container p {
+      margin-bottom: 30px;
+      font-size: 0.95rem;
+      color: #666;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 12px 15px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+      box-sizing: border-box;
+    }
+
+    .signup-btn {
+      width: 100%;
+      padding: 12px;
+      background-color: #004d7a;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .signup-btn:hover {
+      background-color: #00385a;
+    }
+
+    .signup-links {
+      margin-top: 20px;
+      font-size: 0.9rem;
+    }
+
+    .signup-links a {
+      color: #004d7a;
+      text-decoration: none;
+    }
+
+    .signup-links a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 500px) {
+      .signup-container {
+        margin: 0 20px;
+      }
+
+      .nav-links a {
+        margin-left: 10px;
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav>
+    <a href="index.html" class="nav-logo">🎨 Colour Vision App</a>
+    <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="/Blindness_Test">Test</a>
+      <a href="/object">Representation</a>
+      <a href="/Accounts/Login">Login</a>
+    </div>
+  </nav>
+
+  <!-- Sign Up Form -->
+  <div class="signup-container">
+    <h2>📝 Create Your Account</h2>
+    <p>Join Colour Vision App to start testing, simulating, and learning!</p>
+
+    <form>
+      <input type="text" placeholder="Full Name" required />
+      <input type="email" placeholder="Email" required />
+      <input type="password" placeholder="Password" required />
+      <input type="password" placeholder="Confirm Password" required />
+      <button type="submit" class="signup-btn">Register</button>
+    </form>
+
+    <div class="signup-links">
+      Already have an account? <a href="/Accounts/Login">Login</a>
+    </div>
+  </div>
+
+</body>
+</html> {% endcomment %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sign Up – Colour Vision App</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f8f9fa;
+      color: #333;
+    }
+
+    /* Navbar */
+    nav {
+      background-color: #004d7a;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .nav-logo {
+      color: white;
+      font-size: 1.5rem;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: #ffd700;
+    }
+
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .menu-toggle div {
+      width: 25px;
+      height: 3px;
+      background-color: white;
+      margin: 4px 0;
+      transition: 0.4s;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        background-color: #004d7a;
+        margin-top: 10px;
+      }
+
+      .nav-links.show {
+        display: flex;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+    }
+
+    /* Signup Container */
+    .signup-container {
+      background-color: #ffffff;
+      padding: 40px 30px;
+      border-radius: 16px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 450px;
+      text-align: center;
+      margin: 80px auto;
+    }
+
+    .signup-container h2 {
+      color: #004d7a;
+      margin-bottom: 20px;
+      font-size: 2rem;
+    }
+
+    .signup-container p {
+      margin-bottom: 30px;
+      font-size: 0.95rem;
+      color: #666;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 12px 15px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+      box-sizing: border-box;
+    }
+
+    .signup-btn {
+      width: 100%;
+      padding: 12px;
+      background-color: #004d7a;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .signup-btn:hover {
+      background-color: #00385a;
+    }
+
+    .signup-links {
+      margin-top: 20px;
+      font-size: 0.9rem;
+    }
+
+    .signup-links a {
+      color: #004d7a;
+      text-decoration: none;
+    }
+
+    .signup-links a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav>
+    <a href="index.html" class="nav-logo">🎨 ColourCue App</a>
+    <div class="menu-toggle" onclick="toggleMenu()">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <div class="nav-links" id="navLinks">
+      <a href="/">Home</a>
+      <a href="/Blindness_Test">Test</a>
+      <a href="/object">Representation</a>
+      <a href="/Accounts/Login">Login</a>
+    </div>
+  </nav>
+
+  <!-- Sign Up Form -->
+  <div class="signup-container">
+    <h2>📝 Create Your Account</h2>
+    <p>Join Colour Vision App to start testing, simulating, and learning!</p>
+
+    <form>
+      <input type="text" placeholder="Full Name" required />
+      <input type="email" placeholder="Email" required />
+      <input type="password" placeholder="Password" required />
+      <input type="password" placeholder="Confirm Password" required />
+      <button type="submit" class="signup-btn">Register</button>
+    </form>
+
+    <div class="signup-links">
+      Already have an account? <a href="/Accounts/Login">Login</a>
+    </div>
+  </div>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById('navLinks').classList.toggle('show');
+    }
+  </script>
+
+</body>
+</html>

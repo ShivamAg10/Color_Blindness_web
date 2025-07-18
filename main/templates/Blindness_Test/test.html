@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Test Intro – Colour Vision App</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f8f9fa;
+      color: #333;
+    }
+
+    /* Navbar */
+    nav {
+      background-color: #004d7a;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .nav-logo {
+      color: white;
+      font-size: 1.5rem;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: #ffd700;
+    }
+
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .menu-toggle div {
+      width: 25px;
+      height: 3px;
+      background-color: white;
+      margin: 4px 0;
+      transition: 0.4s;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        background-color: #004d7a;
+        margin-top: 10px;
+      }
+
+      .nav-links.show {
+        display: flex;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+    }
+
+    /* Intro Section */
+    .intro-container {
+      max-width: 800px;
+      margin: 60px auto;
+      padding: 30px;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .intro-container h1 {
+      font-size: 2rem;
+      color: #004d7a;
+      margin-bottom: 20px;
+    }
+
+    .intro-container p {
+      font-size: 1rem;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .intro-container ul {
+      padding-left: 20px;
+      margin-bottom: 20px;
+    }
+
+    .intro-container li {
+      margin-bottom: 8px;
+    }
+
+    .disclaimer {
+      font-size: 0.9rem;
+      color: #666;
+      margin-top: 20px;
+      border-top: 1px solid #ddd;
+      padding-top: 15px;
+    }
+
+    .start-btn {
+      display: inline-block;
+      background-color: #004d7a;
+      color: white;
+      padding: 12px 25px;
+      font-size: 1rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .start-btn:hover {
+      background-color: #00385a;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav>
+    <a href="index.html" class="nav-logo">🎨 ColourCue App</a>
+    <div class="menu-toggle" onclick="toggleMenu()">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <div class="nav-links" id="navLinks">
+      <a href="/">Home</a>
+      <a href="/Blindness_Test">Test</a>
+      <a href="/object">Representation</a>
+      <a href="/Accounts/Login">Login</a>
+    </div>
+  </nav>
+
+  <!-- Intro Section -->
+  <div class="intro-container">
+    <h1>🧪 Colour Vision Test – Introduction</h1>
+    <p>Welcome! This quick and simple test will help you identify potential forms of color blindness or vision deficiency.</p>
+
+    <p><strong>Here’s what you can expect:</strong></p>
+    <ul>
+      <li>🔢 <strong>Ishihara Test:</strong> Recognize numbers in colored dot plates.</li>
+      <li>🎨 <strong>Color Matching Game:</strong> Match the correct swatch based on visual cues.</li>
+    </ul>
+
+    <p>Each section takes only a few minutes and gives you feedback instantly. There’s no time limit — just try your best!</p>
+
+    <div class="disclaimer">
+      ⚠️ <strong>Disclaimer:</strong> This test is for educational purposes only. It is not a substitute for professional diagnosis. If you suspect a vision issue, please consult an eye care specialist.
+    </div>
+
+    <br />
+    <a href="/Blindness_Test/quiz" class="start-btn">Start the Test</a>
+  </div>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById('navLinks').classList.toggle('show');
+    }
+  </script>
+
+</body>
+</html>

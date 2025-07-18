@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ColourCue</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f8f9fa;
+      color: #333;
+      scroll-behavior: smooth;
+    }
+
+    /* Navbar */
+    nav {
+      background-color: #004d7a;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      color: #fff;
+      font-weight: bold;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #ffffff;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: #ffd700;
+    }
+
+    /* Hero Section */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 80px 20px;
+      background: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%);
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      color: #004d7a;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin-bottom: 30px;
+      color: #222;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .hero-buttons a {
+      padding: 12px 24px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+      background-color: #004d7a;
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background-color: #003457;
+    }
+
+    .btn-secondary {
+      background-color: #ffffff;
+      color: #004d7a;
+      border: 2px solid #004d7a;
+    }
+
+    .btn-secondary:hover {
+      background-color: #f0f0f0;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+
+      .nav-links {
+        flex-direction: column;
+        background-color: #004d7a;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 200px;
+        display: none;
+      }
+
+      .nav-links.show {
+        display: flex;
+      }
+
+      .menu-toggle {
+        display: block;
+        cursor: pointer;
+        color: #fff;
+        font-size: 1.5rem;
+      }
+    }
+
+    @media (min-width: 769px) {
+      .menu-toggle {
+        display: none;
+      }
+    }
+    .feature-card {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+  padding: 30px 20px;
+  width: 300px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.feature-card .icon {
+  font-size: 2rem;
+  margin-bottom: 15px;
+}
+
+.feature-card h3 {
+  color: #004d7a;
+  font-size: 1.25rem;
+  margin-bottom: 10px;
+}
+
+.feature-card p {
+  color: #333;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.testimonial-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+  padding: 25px 20px;
+  max-width: 300px;
+  text-align: left;
+  font-size: 1rem;
+  color: #333;
+  transition: transform 0.3s ease;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-5px);
+}
+
+.testimonial-card p {
+  font-style: italic;
+  margin-bottom: 15px;
+  line-height: 1.6;
+}
+
+.testimonial-card h4 {
+  color: #004d7a;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.access-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  padding: 25px 20px;
+  max-width: 280px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.access-card:hover {
+  transform: translateY(-5px);
+}
+
+.access-card .icon {
+  font-size: 2rem;
+  margin-bottom: 15px;
+}
+
+.access-card h3 {
+  color: #004d7a;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.access-card p {
+  font-size: 0.95rem;
+  color: #333;
+  line-height: 1.5;
+}
+
+.download-btn {
+  background-color: #004d7a;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: background 0.3s ease;
+}
+
+.download-btn:hover {
+  background-color: #00385a;
+}
+
+.download-btn.secondary {
+  background-color: #ffffff;
+  color: #004d7a;
+  border: 2px solid #004d7a;
+}
+
+.download-btn.secondary:hover {
+  background-color: #f0f0f0;
+}
+
+
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav>
+    <div class="logo">ColourCue App</div>
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="">Home</a></li>
+      <li><a href="/Blindness_Test">Test</a></li>
+      <li><a href="/object">Representation</a></li>
+      <li><a href="/Accounts/Login">Login</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <h1>See the World in Your Own Colors</h1>
+    <p>Our app helps you experience color the way you were meant to — with clarity, accuracy, and accessibility for all types of color vision.</p>
+    <div class="hero-buttons">
+      <a href="/Blindness_Test" class="btn-primary">Try the Test</a>
+      <a href="/object" class="btn-secondary">Learn More</a>
+    </div>
+  </section>
+
+  <!-- Features Overview Section -->
+<section id="features" style="background-color: #f8f9fa; padding: 80px 20px;">
+  <h2 style="text-align: center; color: #004d7a; font-size: 2.5rem; margin-bottom: 40px;">
+    App Features
+  </h2>
+  
+  <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; max-width: 1100px; margin: 0 auto;">
+    
+    <!-- Feature Card -->
+    <div class="feature-card">
+      <div class="icon">✅</div>
+      <h3>Color Filter Modes</h3>
+      <p>Support for Protanopia, Deuteranopia, Tritanopia – adjust colors to your needs.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="icon">🎨</div>
+      <h3>Live Color Detection</h3>
+      <p>Detect and label colors in real-time using your camera or device screen.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="icon">📸</div>
+      <h3>Image Upload</h3>
+      <p>Upload images and apply color correction filters for better visibility.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="icon">🧪</div>
+      <h3>Vision Test</h3>
+      <p>Take a simple and fast test to identify your color vision type.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="icon">🔄</div>
+      <h3>Camera Simulation</h3>
+      <p>Use your device’s camera to simulate how the world looks with color blindness.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="icon">🧠</div>
+      <h3>Educational Content</h3>
+      <p>Learn about types of color blindness and how they affect people’s daily lives.</p>
+    </div>
+
+  </div>
+</section>
+
+    <!-- About Color Blindness Section -->
+<section id="about" style="background-color: #f8f9fa; padding: 80px 20px;">
+  <div style="max-width: 900px; margin: 0 auto; text-align: center;">
+    <h2 style="color: #004d7a; font-size: 2.5rem; margin-bottom: 20px;">About Color Blindness</h2>
+    
+    <p style="color: #333; font-size: 1.1rem; line-height: 1.7; margin-bottom: 30px;">
+      Color blindness, or color vision deficiency, affects how people perceive colors. It usually makes it hard to distinguish between certain colors—most commonly reds and greens, or blues and yellows. This condition is often inherited and more common in men.
+    </p>
+    
+    <h3 style="color: #004d7a; font-size: 1.4rem; margin-bottom: 10px;">Types of Color Blindness:</h3>
+    <ul style="list-style: none; padding: 0; margin-bottom: 30px; color: #333; font-size: 1rem;">
+      <li>🔴 <strong>Protanopia</strong> – difficulty distinguishing red hues</li>
+      <li>🟢 <strong>Deuteranopia</strong> – trouble with greens</li>
+      <li>🔵 <strong>Tritanopia</strong> – confusion between blues and yellows</li>
+      <li>⚪ <strong>Monochromacy</strong> – seeing only shades of gray (rare)</li>
+    </ul>
+
+    <p style="color: #333; font-size: 1rem; margin-bottom: 30px;">
+      Color blindness can impact daily tasks like choosing clothes, reading maps, interpreting charts, or even driving — but with the right tools and awareness, many of these challenges can be overcome.
+    </p>
+
+    <a href="https://my.clevelandclinic.org/health/diseases/11604-color-blindness" style="
+      display: inline-block;
+      background-color: #004d7a;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: background 0.3s ease;
+    ">Read More</a>
+  </div>
+</section>
+
+    <!-- App Preview / Demo Section -->
+<section id="preview" style="background-color: #f8f9fa; padding: 80px 20px;">
+  <div style="max-width: 1100px; margin: 0 auto; text-align: center;">
+    <h2 style="color: #004d7a; font-size: 2.5rem; margin-bottom: 20px;">App Preview & Demo</h2>
+    <p style="color: #333; font-size: 1.1rem; margin-bottom: 40px;">
+      Experience how our app helps simulate and correct vision for various types of color blindness. See the world through clearer eyes with our real-time filters and tools.
+    </p>
+
+    <!-- Before vs After Image Comparison -->
+    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; align-items: center; margin-bottom: 50px;">
+      <div>
+        <h4 style="color: #004d7a;">Before</h4>
+        <img src="before-image.jpg" alt="Original View" style="max-width: 300px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);" />
+      </div>
+      <div>
+        <h4 style="color: #004d7a;">After (Protanopia Filter)</h4>
+        <img src="after-image.jpg" alt="Filtered View" style="max-width: 300px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);" />
+      </div>
+    </div>
+
+    <!-- Explainer Video (YouTube or Local Placeholder) -->
+    <div style="max-width: 700px; margin: 0 auto;">
+      <h4 style="color: #004d7a; margin-bottom: 15px;">Watch How It Works</h4>
+      <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+        <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" 
+                title="Color Blindness App Demo" 
+                frameborder="0" 
+                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials / Use Cases Section -->
+<section id="testimonials" style="background-color: #f8f9fa; padding: 80px 20px;">
+  <div style="max-width: 1000px; margin: 0 auto; text-align: center;">
+    <h2 style="color: #004d7a; font-size: 2.5rem; margin-bottom: 40px;">What Our Users Say</h2>
+
+    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
+      
+      <!-- Testimonial Card 1 -->
+      <div class="testimonial-card">
+        <p>"This app helps me tell my red and green shirts apart. I use it almost every day when picking out clothes!"</p>
+        <h4>- Rahul, Student</h4>
+      </div>
+
+      <!-- Testimonial Card 2 -->
+      <div class="testimonial-card">
+        <p>"As a designer, I use it to test accessibility for colorblind users. It’s made my work more inclusive."</p>
+        <h4>- Neha, UI Designer</h4>
+      </div>
+
+      <!-- Testimonial Card 3 -->
+      <div class="testimonial-card">
+        <p>"I never realized how different things looked until I used this app. It’s been an eye-opener, literally!"</p>
+        <h4>- Arjun, Photographer</h4>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Accessibility and Inclusivity Section -->
+<section id="accessibility" style="background-color: #f8f9fa; padding: 80px 20px;">
+  <div style="max-width: 1000px; margin: 0 auto; text-align: center;">
+    <h2 style="color: #004d7a; font-size: 2.5rem; margin-bottom: 30px;">
+      Accessibility for Everyone
+    </h2>
+
+    <p style="color: #333; font-size: 1.1rem; margin-bottom: 40px; max-width: 750px; margin-left: auto; margin-right: auto;">
+      Our app is built with empathy and inclusivity in mind. Whether you're colorblind or a designer creating accessible content, we're here to make your experience clearer, kinder, and more inclusive.
+    </p>
+
+    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
+      <div class="access-card">
+        <div class="icon">🧑‍🦯</div>
+        <h3>Empowering Users</h3>
+        <p>Giving independence and confidence to those with color vision challenges.</p>
+      </div>
+
+      <div class="access-card">
+        <div class="icon">🌍</div>
+        <h3>Inclusive Design</h3>
+        <p>Helping developers and designers create color-friendly apps and content.</p>
+      </div>
+
+      <div class="access-card">
+        <div class="icon">♿</div>
+        <h3>Accessibility First</h3>
+        <p>Built for real people with real needs — following WCAG standards where possible.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Download / Access Section -->
+<section id="download" style="background-color: #f8f9fa; padding: 80px 20px;">
+  <div style="max-width: 900px; margin: 0 auto; text-align: center;">
+    <h2 style="color: #004d7a; font-size: 2.5rem; margin-bottom: 20px;">Get the App</h2>
+    <p style="color: #333; font-size: 1.1rem; margin-bottom: 40px;">
+      Start improving your color perception today. Available on multiple platforms for everyone.
+    </p>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
+      <!-- Android Button -->
+      <a href="#!" class="download-btn">
+        📱 Download for Android
+      </a>
+
+      <!-- iOS Button -->
+      <a href="#!" class="download-btn">
+        🍎 Download for iOS
+      </a>
+
+      <!-- Web Version -->
+      <a href="#!" class="download-btn secondary">
+        💻 Try Web Version
+      </a>
+
+      <!-- GitHub -->
+      <a href="#!" class="download-btn secondary">
+        🧑‍💻 View on GitHub
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer Section -->
+<footer style="background-color: #e6ecf0; color: #333; padding: 50px 20px; text-align: center;">
+  <div style="max-width: 1000px; margin: 0 auto;">
+
+    <!-- Contact Info -->
+    <p style="margin-bottom: 10px;">
+      📧 Contact: <a href="mailto:support@colourcueapp.com" style="color: #004d7a; text-decoration: none;">support@colourcueapp.com</a>
+    </p>
+
+    <!-- Developer Credits -->
+    <p style="margin-bottom: 10px;">
+      👨‍💻 Made with ❤️ by Team ColourCue @ Rajiv International School
+    </p>
+
+    <!-- Links -->
+    <div style="margin: 20px 0;">
+      <a href="#!" style="margin: 0 10px; color: #004d7a; text-decoration: none;">Privacy Policy</a> |
+      <a href="#!" style="margin: 0 10px; color: #004d7a; text-decoration: none;">FAQs</a>
+    </div>
+
+    <!-- Social Media -->
+    <div style="margin-bottom: 20px;">
+      <a href="#!" style="margin: 0 10px; color: #004d7a; font-size: 1.2rem;">🌐</a>
+      <a href="#!" style="margin: 0 10px; color: #004d7a; font-size: 1.2rem;">🐦</a>
+      <a href="#!" style="margin: 0 10px; color: #004d7a; font-size: 1.2rem;">📘</a>
+      <a href="#!" style="margin: 0 10px; color: #004d7a; font-size: 1.2rem;">📸</a>
+    </div>
+
+    <!-- Copyright -->
+    <p style="font-size: 0.9rem;">© 2025 ColourCue App. All rights reserved.</p>
+  </div>
+</footer>
+
+
+
+  <script>
+    function toggleMenu() {
+      const nav = document.getElementById('navLinks');
+      nav.classList.toggle('show');
+    }
+  </script>
+</body>
+</html>

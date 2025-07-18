@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ColorCue</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f8f9fa;
+      color: #333;
+    }
+
+    /* Navbar */
+    nav {
+      background-color: #004d7a;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .nav-logo {
+      color: white;
+      font-size: 1.5rem;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: #ffd700;
+    }
+
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .menu-toggle div {
+      width: 25px;
+      height: 3px;
+      background-color: white;
+      margin: 4px 0;
+      transition: 0.4s;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        background-color: #004d7a;
+        margin-top: 10px;
+      }
+
+      .nav-links.show {
+        display: flex;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+    }
+
+    /* Quiz Section */
+    .quiz-container {
+      max-width: 600px;
+      margin: 40px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .quiz-container h2 {
+      color: #004d7a;
+    }
+
+    .quiz-image {
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 20px;
+      border-radius: 10px;
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .options button {
+      padding: 12px;
+      font-size: 1rem;
+      border: 2px solid #004d7a;
+      border-radius: 8px;
+      background-color: white;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .options button:hover {
+      background-color: #004d7a;
+      color: white;
+    }
+
+    .next-btn {
+      padding: 12px 25px;
+      background-color: #004d7a;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .result {
+      font-size: 1.2rem;
+      margin-top: 20px;
+      color: #004d7a;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav>
+    <a href="index.html" class="nav-logo">🎨 ColourCue App</a>
+    <div class="menu-toggle" onclick="toggleMenu()">
+      <div></div><div></div><div></div>
+    </div>
+    <div class="nav-links" id="navLinks">
+      <a href="/">Home</a>
+      <a href="/Blindness_Test">Test</a>
+      <a href="/object">Representation</a>
+      <a href="/Accounts/Login">Login</a>
+    </div>
+  </nav>
+
+  <!-- Quiz Section -->
+  <div class="quiz-container" id="quiz">
+    <h2 id="question-title">Loading Question...</h2>
+    <img id="question-image" class="quiz-image" src="" alt="Test Image" />
+    <div class="options" id="options"></div>
+    <button class="next-btn" onclick="nextQuestion()">Next</button>
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById('navLinks').classList.toggle('show');
+    }
+
+    const quizData = [
+      // Ishihara questions
+      {
+        type: "image",
+        question: "What number do you see in this Ishihara plate?",
+        image: "https://upload.wikimedia.org/wikipedia/commons/8/82/Ishihara_9.png",
+        options: ["12", "8", "9", "3"],
+        correct: "9"
+      },
+      {
+        type: "image",
+        question: "Identify the number in this image.",
+        image: "https://upload.wikimedia.org/wikipedia/commons/1/15/Ishihara_13.png",
+        options: ["6", "45", "5", "Nothing"],
+        correct: "45"
+      },
+
+      // Color matching questions
+      {
+        type: "color",
+        question: "Which of these is pure red?",
+        options: [
+          { color: "#ff0000", label: "A" },
+          { color: "#ff6666", label: "B" },
+          { color: "#cc0000", label: "C" },
+          { color: "#990000", label: "D" }
+        ],
+        correct: "A"
+      },
+      {
+        type: "color",
+        question: "Which swatch is closest to teal?",
+        options: [
+          { color: "#008080", label: "A" },
+          { color: "#00ffff", label: "B" },
+          { color: "#006666", label: "C" },
+          { color: "#009999", label: "D" }
+        ],
+        correct: "A"
+      }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+
+    function loadQuestion() {
+      const q = quizData[currentQuestion];
+      const title = document.getElementById('question-title');
+      const image = document.getElementById('question-image');
+      const options = document.getElementById('options');
+
+      title.textContent = q.question;
+      options.innerHTML = "";
+      image.style.display = q.type === "image" ? "block" : "none";
+      image.src = q.image || "";
+
+      if (q.type === "image") {
+        q.options.forEach(opt => {
+          const btn = document.createElement("button");
+          btn.textContent = opt;
+          btn.onclick = () => checkAnswer(opt);
+          options.appendChild(btn);
+        });
+      } else if (q.type === "color") {
+        q.options.forEach(opt => {
+          const btn = document.createElement("button");
+          btn.innerHTML = `${opt.label} <span style="display:inline-block;width:20px;height:20px;background:${opt.color};border-radius:4px;margin-left:10px;"></span>`;
+          btn.onclick = () => checkAnswer(opt.label);
+          options.appendChild(btn);
+        });
+      }
+    }
+
+    function checkAnswer(selected) {
+      const correct = quizData[currentQuestion].correct;
+      if (selected === correct) score++;
+      currentQuestion++;
+      if (currentQuestion < quizData.length) {
+        loadQuestion();
+      } else {
+        showResult();
+      }
+    }
+
+    function nextQuestion() {
+      // force selection via buttons only
+      alert("Please select an option to proceed.");
+    }
+
+    function showResult() {
+      document.getElementById("quiz").innerHTML = `
+        <h2>✅ Test Completed</h2>
+        <p class="result">Your Score: ${score} / ${quizData.length}</p>
+        <p>Note: This is not a medical diagnosis. If you suspect color vision issues, consult an eye care specialist.</p>
+        <a href="/" class="next-btn">Back to Home</a>
+      `;
+    }
+
+    window.onload = loadQuestion;
+  </script>
+
+</body>
+</html>
