@@ -95,7 +95,7 @@
       font-size: 2rem;
     }
 
-    input[type="email"],
+    input[type="text"],
     input[type="password"] {
       width: 100%;
       padding: 12px 15px;
@@ -159,9 +159,10 @@
   <!-- Login Form -->
   <div class="login-container">
     <h2>🔐 Login to Your Account</h2>
-    <form>
-      <input type="email" placeholder="Email" required />
-      <input type="password" placeholder="Password" required />
+    <form method="POST">
+      {% csrf_token %}
+      <input type="text" placeholder="fullName" name="fullName" required />
+      <input type="password" placeholder="Password" name="passw" required />
       <button type="submit" class="login-btn">Login</button>
     </form>
 

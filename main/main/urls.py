@@ -9,3 +9,8 @@ urlpatterns = [
     path("Blindness_Test/", include('Blindness_Test.urls')),
     path("object/", include('objec.urls')),
 ]
+
+'''
+    username: shivamag_10
+    password: shivamag_10
+'''

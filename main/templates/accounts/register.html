@@ -324,11 +324,12 @@
     <h2>📝 Create Your Account</h2>
     <p>Join Colour Vision App to start testing, simulating, and learning!</p>
 
-    <form>
-      <input type="text" placeholder="Full Name" required />
-      <input type="email" placeholder="Email" required />
-      <input type="password" placeholder="Password" required />
-      <input type="password" placeholder="Confirm Password" required />
+    <form method="POST">
+      {% csrf_token %}
+      <input type="text" placeholder="Full Name" name="fullName" required />
+      <input type="email" placeholder="Email" name="eMail" required />
+      <input type="password" placeholder="Password" name = "passw" required />
+      <input type="password" placeholder="Confirm Password" name="con_passw" required />
       <button type="submit" class="signup-btn">Register</button>
     </form>
 

@@ -273,12 +273,17 @@
       <li><a href="">Home</a></li>
       <li><a href="/Blindness_Test">Test</a></li>
       <li><a href="/object">Representation</a></li>
-      <li><a href="/Accounts/Login">Login</a></li>
+      {% if user.is_authenticated %}
+        <li><a href="{% url 'logout' %}">Logout</a></li>
+      {% else %}
+        <li><a href="{% url 'login' %}">Login</a></li>
+      {% endif %}
     </ul>
   </nav>
 
   <!-- Hero Section -->
   <section class="hero" id="home">
+    <h1>Hi! {{user.username}}</h1>
     <h1>See the World in Your Own Colors</h1>
     <p>Our app helps you experience color the way you were meant to — with clarity, accuracy, and accessibility for all types of color vision.</p>
     <div class="hero-buttons">
