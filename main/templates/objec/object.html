@@ -3,9 +3,470 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=, initial-scale=1.0">
-    <title>Object</title>
+    <title>ColorCue</title>
+    <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f8f9fa;
+      color: #333;
+      scroll-behavior: smooth;
+    }
+
+    /* Navbar */
+    nav {
+      background-color: #004d7a;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      color: #fff;
+      font-weight: bold;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #ffffff;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: #ffd700;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+
+      .nav-links {
+        flex-direction: column;
+        background-color: #004d7a;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 200px;
+        display: none;
+      }
+
+      .nav-links.show {
+        display: flex;
+      }
+
+      .menu-toggle {
+        display: block;
+        cursor: pointer;
+        color: #fff;
+        font-size: 1.5rem;
+      }
+    }
+
+    @media (min-width: 769px) {
+      .menu-toggle {
+        display: none;
+      }
+    }
+</style>
+
+<style>
+  .intro-section {
+    text-align: center;
+    padding: 3rem 2rem;
+    background-color: #e6f1f8;
+    color: #003354;
+  }
+
+  .intro-section h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #004d7a;
+  }
+
+  .intro-section p {
+    font-size: 1.1rem;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+</style>
+
+<style>
+  .representation-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    gap: 2rem;
+    padding: 2rem;
+    flex-wrap: wrap;
+    background-color: #f5fbff;
+  }
+
+  .camera-box, .simulation-box {
+    flex: 1 1 45%;
+    background-color: #ffffff;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+
+  .camera-box h2, .simulation-box h2 {
+    margin-bottom: 1rem;
+    color: #004d7a;
+  }
+
+  #cameraFeed, #simulatedCanvas {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    border: 2px solid #004d7a;
+  }
+
+  @media (max-width: 768px) {
+    .camera-box, .simulation-box {
+      flex: 1 1 100%;
+    }
+  }
+</style>
+
+{% comment %} <style>
+  .representation-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 2rem;
+    padding: 2rem;
+    background-color: #f5fbff;
+  }
+
+  .camera-box, .simulation-box {
+    background-color: #ffffff;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 660px;
+  }
+
+  .camera-box h2, .simulation-box h2 {
+    margin-bottom: 1rem;
+    color: #004d7a;
+  }
+
+  #cameraFeed, #simulatedCanvas {
+    width: 640px;
+    height: 480px;
+    border-radius: 8px;
+    border: 2px solid #004d7a;
+    object-fit: cover;
+  }
+
+  @media (max-width: 768px) {
+    .camera-box, .simulation-box {
+      width: 100%;
+    }
+
+    #cameraFeed, #simulatedCanvas {
+      width: 100%;
+      height: auto;
+    }
+  }
+</style> {% endcomment %}
+
+<style>
+  .controls-section {
+    text-align: center;
+    margin: 2rem 0;
+  }
+
+  .controls-section select,
+  .controls-section button {
+    margin: 0 1rem;
+    padding: 0.6rem 1rem;
+    font-size: 1rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+  }
+
+  .controls-section button {
+    background-color: #004d7a;
+    color: white;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s;
+  }
+
+  .controls-section button:hover {
+    background-color: #0063a8;
+  }
+</style>
+
+<style>
+  .color-info {
+    text-align: center;
+    margin: 3rem 0 2rem;
+    padding: 2rem;
+    background-color: #edf9ff;
+    border-radius: 10px;
+    color: #003354;
+  }
+
+  #colorBox {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 1rem;
+    border-radius: 8px;
+    border: 2px solid #004d7a;
+  }
+
+  .action-buttons button {
+    margin: 1rem 0.5rem;
+    padding: 0.6rem 1rem;
+    font-size: 1rem;
+    border-radius: 6px;
+    border: none;
+    background-color: #004d7a;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .action-buttons button:hover {
+    background-color: #0063a8;
+  }
+</style>
+
+
 </head>
 <body>
-    Here, We will show Objects.
+    <!-- Navbar -->
+  <nav>
+    <div class="logo">ColourCue App</div>
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/">Home</a></li>
+      <li><a href="/Blindness_Test">Test</a></li>
+      <li><a href="/object">Representation</a></li>
+      <li><a href="/Accounts/Login">Login</a></li>
+    </ul>
+  </nav>
+
+  <section class="intro-section">
+  <h1>🎥 Color Representation Through Your Camera</h1>
+  <p>
+    Point your camera at real-world objects to detect and analyze their colors.
+    See how these colors appear to individuals with different types of color blindness.
+    This tool helps users understand and simulate visual differences.
+  </p>
+</section>
+
+<section class="representation-container">
+  <div class="camera-box">
+    <h2>Live Camera</h2>
+    <video id="cameraFeed" autoplay playsinline></video>
+  </div>
+  <div class="simulation-box">
+    <h2>Simulated View</h2>
+    <canvas id="simulatedCanvas" width="640" height="480"></canvas>
+  </div>
+</section>
+
+<section class="controls-section">
+  <label for="modeSelect">🎛️ Select Simulation Mode:</label>
+  <select id="modeSelect">
+    <option value="normal">Normal Vision</option>
+    <option value="protanopia">Protanopia</option>
+    <option value="deuteranopia">Deuteranopia</option>
+    <option value="tritanopia">Tritanopia</option>
+  </select>
+
+  <button onclick="captureFrame()">📸 Capture Frame</button>
+</section>
+
+<section class="color-info">
+  <h3>🎨 Selected Color Info</h3>
+  <div id="colorBox"></div>
+  <p id="colorHex">Hex: #------</p>
+  <p id="colorDescription">Click on a point in the simulated view to analyze color.</p>
+
+  <div class="action-buttons">
+    <button onclick="saveImage()">💾 Save Image</button>
+    <button onclick="resetCanvas()">🔁 Reset</button>
+  </div>
+</section>
+
+<!-- Footer Section -->
+<footer style="background-color: #e6ecf0; color: #333; padding: 50px 20px; text-align: center;">
+  <div style="max-width: 1000px; margin: 0 auto;">
+
+    <!-- Contact Info -->
+    <p style="margin-bottom: 10px;">
+      📧 Contact: <a href="mailto:support@colourcueapp.com" style="color: #004d7a; text-decoration: none;">support@colourcueapp.com</a>
+    </p>
+
+    <!-- Developer Credits -->
+    <p style="margin-bottom: 10px;">
+      👨‍💻 Made with ❤️ by Team ColourCue @ Rajiv International School
+    </p>
+
+    <!-- Links -->
+    <div style="margin: 20px 0;">
+      <a href="#!" style="margin: 0 10px; color: #004d7a; text-decoration: none;">Privacy Policy</a> |
+      <a href="#!" style="margin: 0 10px; color: #004d7a; text-decoration: none;">FAQs</a>
+    </div>
+
+    <!-- Social Media -->
+    <div style="margin-bottom: 20px;">
+      <a href="#!" style="margin: 0 10px; color: #004d7a; font-size: 1.2rem;">🌐</a>
+      <a href="#!" style="margin: 0 10px; color: #004d7a; font-size: 1.2rem;">🐦</a>
+      <a href="#!" style="margin: 0 10px; color: #004d7a; font-size: 1.2rem;">📘</a>
+      <a href="#!" style="margin: 0 10px; color: #004d7a; font-size: 1.2rem;">📸</a>
+    </div>
+
+    <!-- Copyright -->
+    <p style="font-size: 0.9rem;">© 2025 ColourCue App. All rights reserved.</p>
+  </div>
+</footer>
+
+   <script>
+    function toggleMenu() {
+      document.getElementById('navLinks').classList.toggle('show');
+    }
+  </script>
+
+  {% comment %} <script>
+  const video = document.getElementById('cameraFeed');
+
+  // Access the webcam
+  navigator.mediaDevices.getUserMedia({ video: true })
+    .then(stream => {
+      video.srcObject = stream;
+    })
+    .catch(err => {
+      console.error("Webcam access error:", err);
+      alert("Unable to access your camera. Please allow permission.");
+    });
+</script> {% endcomment %}
+
+<script>
+  const video = document.getElementById('cameraFeed');
+  const canvas = document.getElementById('simulatedCanvas');
+  const ctx = canvas.getContext('2d');
+  const modeSelect = document.getElementById('modeSelect');
+
+  function captureFrame() {
+    // Draw video frame to canvas
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+    // Get pixel data
+    let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    let data = imageData.data;
+
+    // Apply colorblind simulation
+    const mode = modeSelect.value;
+    if (mode !== "normal") {
+      for (let i = 0; i < data.length; i += 4) {
+        const [r, g, b] = simulateColorBlindness(data[i], data[i + 1], data[i + 2], mode);
+        data[i] = r;
+        data[i + 1] = g;
+        data[i + 2] = b;
+      }
+      ctx.putImageData(imageData, 0, 0);
+    }
+  }
+
+  function simulateColorBlindness(r, g, b, type) {
+    let newR = r, newG = g, newB = b;
+
+    if (type === "protanopia") {
+      newR = 0.567 * r + 0.433 * g;
+      newG = 0.558 * r + 0.442 * g;
+      newB = 0.242 * g + 0.758 * b;
+    } else if (type === "deuteranopia") {
+      newR = 0.625 * r + 0.375 * g;
+      newG = 0.7 * r + 0.3 * g;
+      newB = 0.3 * g + 0.7 * b;
+    } else if (type === "tritanopia") {
+      newR = 0.95 * r + 0.05 * b;
+      newG = 0.433 * g + 0.567 * b;
+      newB = 0.475 * g + 0.525 * b;
+    }
+
+    return [newR, newG, newB];
+  }
+</script>
+
+<script>
+  // Click to get color info from canvas
+  canvas.addEventListener("click", function (e) {
+    const rect = canvas.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    const imageData = ctx.getImageData(x, y, 1, 1);
+    const [r, g, b] = imageData.data;
+    const hex = rgbToHex(r, g, b);
+
+    document.getElementById("colorBox").style.backgroundColor = hex;
+    document.getElementById("colorHex").innerText = `Hex: ${hex}`;
+    document.getElementById("colorDescription").innerText = getColorName(hex);
+  });
+
+  function rgbToHex(r, g, b) {
+    return "#" + [r, g, b].map(x => x.toString(16).padStart(2, "0")).join("");
+  }
+
+  function getColorName(hex) {
+    // Simplified explanation — you can extend this
+    const basicColors = {
+      "#ff0000": "Red",
+      "#00ff00": "Green",
+      "#0000ff": "Blue",
+      "#ffff00": "Yellow",
+      "#00ffff": "Cyan",
+      "#ff00ff": "Magenta"
+    };
+
+    return basicColors[hex.toLowerCase()] || "This color may appear differently for people with certain color vision deficiencies.";
+  }
+
+  function saveImage() {
+    const link = document.createElement("a");
+    link.download = "simulated-colorblind-view.png";
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+  }
+
+  function resetCanvas() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    document.getElementById("colorBox").style.backgroundColor = "#ffffff";
+    document.getElementById("colorHex").innerText = "Hex: #------";
+    document.getElementById("colorDescription").innerText = "Click on a point in the simulated view to analyze color.";
+  }
+</script>
+
+
 </body>
 </html>
