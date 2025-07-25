@@ -206,6 +206,8 @@
       document.getElementById('navLinks').classList.toggle('show');
     }
 
+    let userAnswers = [];
+
     const quizData = [
       // Ishihara questions
       {
@@ -280,14 +282,46 @@
     }
 
     function checkAnswer(selected) {
-      const correct = quizData[currentQuestion].correct;
+      const q = quizData[currentQuestion]
+      const correct = q.correct;
+
+      userAnswers.push({
+        question : q.question,
+        selected : selected,
+        correct : correct
+      });
+
       if (selected === correct) score++;
       currentQuestion++;
       if (currentQuestion < quizData.length) {
         loadQuestion();
       } else {
-        showResult();
+        submitQuiz();
       }
+    }
+
+    function submitQuiz(){
+      fetch("/Blindness_Test/quiz/", {
+        method : "POST",
+        headers : {
+          "Content-Type" : "application/json"
+        },
+        body : JSON.stringify({answers : userAnswers})
+      })
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById("quiz").innerHTML = `
+        <h2>✅ Test Completed</h2>
+        <p class="result">Your Score: ${data.score} / ${quizData.length}</p>
+        <p>Result Type: <strong>${data.result_type}</strong></p>
+        <p>Note: This is not a medical diagnosis. If you suspect color vision issues, consult an eye care specialist.</p>
+        <a href="/" class="next-btn">Back to Home</a>
+        `;
+      })
+      .catch(error => {
+        console.error("Error submitting quiz: ", error);
+        alert("There was a problem submitting your quiz.")
+      });
     }
 
     function nextQuestion() {
