@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -93,6 +95,7 @@
     }
 
     .quiz-image {
+      padding-left: 10rem;
       max-width: 100%;
       height: auto;
       margin-bottom: 20px;
@@ -143,7 +146,7 @@
 
   <!-- Navbar -->
   <nav>
-    <a href="index.html" class="nav-logo">🎨 ColourCue App</a>
+    <a href="index.html" class="nav-logo">ColourCue App</a>
     <div class="menu-toggle" onclick="toggleMenu()">
       <div></div><div></div><div></div>
     </div>
@@ -213,16 +216,37 @@
       {
         type: "image",
         question: "What number do you see in this Ishihara plate?",
-        image: "https://upload.wikimedia.org/wikipedia/commons/8/82/Ishihara_9.png",
+        image: "{% static 'Image/num_12.png' %}",
         options: ["12", "8", "9", "3"],
-        correct: "9"
+        correct: "12"
       },
       {
         type: "image",
         question: "Identify the number in this image.",
-        image: "https://upload.wikimedia.org/wikipedia/commons/1/15/Ishihara_13.png",
-        options: ["6", "45", "5", "Nothing"],
-        correct: "45"
+        image: "{% static 'Image/Red_Green/num_8.png' %}",
+        options: ["6", "3", "5", "8"],
+        correct: "8"
+      },
+      {
+        type: "image",
+        question: "Identify the number in this image.",
+        image: "{% static 'Image/Red_Green/num_6.png' %}",
+        options: ["6", "4", "5", "8"],
+        correct: "6"
+      },
+      {
+        type: "image",
+        question: "Identify the number in this image.",
+        image: "{% static 'Image/Red_Green/num_29.png' %}",
+        options: ["59", "24", "29", "70"],
+        correct: "29"
+      },
+      {
+        type: "image",
+        question: "Identify the number in this image.",
+        image: "{% static 'Image/Red_Green/num_29.png' %}",
+        options: ["5", "2", "9", "4"],
+        correct: "5"
       },
 
       /* Color matching questions

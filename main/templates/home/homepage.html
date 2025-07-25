@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -386,11 +388,11 @@
     <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; align-items: center; margin-bottom: 50px;">
       <div>
         <h4 style="color: #004d7a;">Before</h4>
-        <img src="before-image.jpg" alt="Original View" style="max-width: 300px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);" />
+        <img src="{% static 'Image/HomePage/before.png' %}" alt="Original View" style="max-width: 300px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);" />
       </div>
       <div>
         <h4 style="color: #004d7a;">After (Protanopia Filter)</h4>
-        <img src="after-image.jpg" alt="Filtered View" style="max-width: 300px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);" />
+        <img src="{% static 'Image/HomePage/after.png' %}" alt="Filtered View" style="max-width: 300px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);" />
       </div>
     </div>
 
@@ -481,24 +483,24 @@
 
     <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
       <!-- Android Button -->
-      <a href="#!" class="download-btn">
+      <a href="https://spectacular-flan-7dd1c1.netlify.app/" class="download-btn">
         📱 Download for Android
       </a>
 
       <!-- iOS Button -->
-      <a href="#!" class="download-btn">
+      <a href="https://spectacular-flan-7dd1c1.netlify.app/" class="download-btn">
         🍎 Download for iOS
       </a>
 
       <!-- Web Version -->
-      <a href="#!" class="download-btn secondary">
+      <a href="/" class="download-btn secondary">
         💻 Try Web Version
       </a>
 
       <!-- GitHub -->
-      <a href="#!" class="download-btn secondary">
+      {% comment %} <a href="#!" class="download-btn secondary">
         🧑‍💻 View on GitHub
-      </a>
+      </a> {% endcomment %}
     </div>
   </div>
 </section>
@@ -519,16 +521,16 @@
 
     <!-- Links -->
     <div style="margin: 20px 0;">
-      <a href="#!" style="margin: 0 10px; color: #004d7a; text-decoration: none;">Privacy Policy</a> |
-      <a href="#!" style="margin: 0 10px; color: #004d7a; text-decoration: none;">FAQs</a>
+      <a href="/" style="margin: 0 10px; color: #004d7a; text-decoration: none;">Privacy Policy</a> |
+      <a href="/" style="margin: 0 10px; color: #004d7a; text-decoration: none;">FAQs</a>
     </div>
 
     <!-- Social Media -->
     <div style="margin-bottom: 20px;">
-      <a href="#!" style="margin: 0 10px; color: #004d7a; font-size: 1.2rem;">🌐</a>
-      <a href="#!" style="margin: 0 10px; color: #004d7a; font-size: 1.2rem;">🐦</a>
-      <a href="#!" style="margin: 0 10px; color: #004d7a; font-size: 1.2rem;">📘</a>
-      <a href="#!" style="margin: 0 10px; color: #004d7a; font-size: 1.2rem;">📸</a>
+      <a href="/" style="margin: 0 10px; color: #004d7a; font-size: 1.2rem;">🌐</a>
+      <a href="https://spectacular-flan-7dd1c1.netlify.app/" style="margin: 0 10px; color: #004d7a; font-size: 1.2rem;">🐦</a>
+      <a href="https://spectacular-flan-7dd1c1.netlify.app/" style="margin: 0 10px; color: #004d7a; font-size: 1.2rem;">📘</a>
+      <a href="https://spectacular-flan-7dd1c1.netlify.app/" style="margin: 0 10px; color: #004d7a; font-size: 1.2rem;">📸</a>
     </div>
 
     <!-- Copyright -->
