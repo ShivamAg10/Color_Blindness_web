@@ -22,7 +22,7 @@
 
     /* Navbar */
     nav {
-      background-color: #004d7a;
+      background-color: black;
       padding: 1rem 2rem;
       display: flex;
       justify-content: space-between;
@@ -40,6 +40,7 @@
     }
 
     .nav-links {
+      font-size: 1.05rem;
       list-style: none;
       display: flex;
       gap: 1.5rem;
@@ -63,12 +64,12 @@
       align-items: center;
       text-align: center;
       padding: 80px 20px;
-      background: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%);
+      background: linear-gradient(120deg, #000000d3 0%, #000000d3 100%);
     }
 
     .hero h1 {
       font-size: 3rem;
-      color: #004d7a;
+      color: #fff;
       margin-bottom: 20px;
     }
 
@@ -76,7 +77,7 @@
       font-size: 1.2rem;
       max-width: 600px;
       margin-bottom: 30px;
-      color: #222;
+      color: #fdfcfcd3;
     }
 
     .hero-buttons {
@@ -95,18 +96,19 @@
     }
 
     .btn-primary {
-      background-color: #004d7a;
+      background-color: black;
       color: #fff;
     }
 
     .btn-primary:hover {
-      background-color: #003457;
+      background-color: #fff;
+      color: black;
     }
 
     .btn-secondary {
       background-color: #ffffff;
-      color: #004d7a;
-      border: 2px solid #004d7a;
+      color: black;
+      border: 2px solid #ffffff;
     }
 
     .btn-secondary:hover {
@@ -121,7 +123,7 @@
 
       .nav-links {
         flex-direction: column;
-        background-color: #004d7a;
+        background-color: black;
         position: absolute;
         top: 60px;
         right: 0;
@@ -147,30 +149,30 @@
       }
     }
     .feature-card {
-  background-color: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
-  padding: 30px 20px;
-  width: 300px;
-  text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
+      background-color: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+      padding: 30px 20px;
+      width: 300px;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
 
-.feature-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-}
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
 
-.feature-card .icon {
-  font-size: 2rem;
-  margin-bottom: 15px;
-}
+    .feature-card .icon {
+      font-size: 2rem;
+      margin-bottom: 15px;
+    }
 
-.feature-card h3 {
-  color: #004d7a;
-  font-size: 1.25rem;
-  margin-bottom: 10px;
-}
+    .feature-card h3 {
+      color: black;
+      font-size: 1.25rem;
+      margin-bottom: 10px;
+    }
 
 .feature-card p {
   color: #333;
@@ -262,14 +264,17 @@
   background-color: #f0f0f0;
 }
 
-
+.nav_img{
+  width: 100px;
+  height: 50px;
+}
   </style>
 </head>
 <body>
 
   <!-- Navbar -->
   <nav>
-    <div class="logo">ColourCue App</div>
+    <img class="nav_img" src="{% static 'Image/HomePage/logo_nav.jpg' %}" alt="">
     <div class="menu-toggle" onclick="toggleMenu()">☰</div>
     <ul class="nav-links" id="navLinks">
       <li><a href="">Home</a></li>
@@ -296,7 +301,7 @@
 
   <!-- Features Overview Section -->
 <section id="features" style="background-color: #f8f9fa; padding: 80px 20px;">
-  <h2 style="text-align: center; color: #004d7a; font-size: 2.5rem; margin-bottom: 40px;">
+  <h2 style="text-align: center; color: black; font-size: 2.5rem; margin-bottom: 40px;">
     App Features
   </h2>
   
@@ -345,13 +350,13 @@
     <!-- About Color Blindness Section -->
 <section id="about" style="background-color: #f8f9fa; padding: 80px 20px;">
   <div style="max-width: 900px; margin: 0 auto; text-align: center;">
-    <h2 style="color: #004d7a; font-size: 2.5rem; margin-bottom: 20px;">About Color Blindness</h2>
+    <h2 style="color: black; font-size: 2.5rem; margin-bottom: 20px;">About Color Blindness</h2>
     
     <p style="color: #333; font-size: 1.1rem; line-height: 1.7; margin-bottom: 30px;">
       Color blindness, or color vision deficiency, affects how people perceive colors. It usually makes it hard to distinguish between certain colors—most commonly reds and greens, or blues and yellows. This condition is often inherited and more common in men.
     </p>
     
-    <h3 style="color: #004d7a; font-size: 1.4rem; margin-bottom: 10px;">Types of Color Blindness:</h3>
+    <h3 style="color: black; font-size: 1.4rem; margin-bottom: 10px;">Types of Color Blindness:</h3>
     <ul style="list-style: none; padding: 0; margin-bottom: 30px; color: #333; font-size: 1rem;">
       <li>🔴 <strong>Protanopia</strong> – difficulty distinguishing red hues</li>
       <li>🟢 <strong>Deuteranopia</strong> – trouble with greens</li>
