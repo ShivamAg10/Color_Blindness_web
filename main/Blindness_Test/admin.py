@@ -6,6 +6,7 @@ class QuizResultAdmin(admin.ModelAdmin):
     list_display = ('user', 'score', 'total_questions', 'result_type', 'submitted_at')
     list_filter = ('result_type', 'submitted_at')
     search_fields = ('user__username', 'result_type')
+    readonly_fields = ('category_breakdown',)
 
 @admin.register(UserAnswer)
 class UserAnswerAdmin(admin.ModelAdmin):

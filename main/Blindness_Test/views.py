@@ -2,8 +2,10 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
-import json
 from .models import UserAnswer, QuizResult
+from collections import defaultdict
+import json
+
 
 # Create your views here.
 
@@ -28,15 +30,20 @@ def quiz(request):
             result_type="Pending"
         )
 
+        category_scores = defaultdict(lambda: {"correct": 0, "total": 0})
+
         # Process answers
         for ans in answers:
             question = ans.get("question", "")
             selected = ans.get("selected", "")
             correct = ans.get("correct", "")
+            category = ans.get("category", "unknown")
 
             is_correct = (selected == correct)
             if is_correct:
                 score += 1
+                category_scores[category]["correct"] += 1
+            category_scores[category]["total"] += 1
 
             UserAnswer.objects.create(
                 user=request.user,
@@ -48,22 +55,34 @@ def quiz(request):
             )
 
         # Determine blindness type (basic logic — you can expand)
-        if score == total:
-            result_type = "Normal Vision"
-        elif score >= total * 0.6:
-            result_type = "Mild Color Blindness"
-        else:
-            result_type = "Possible Color Blindness"
+        result_type = "normal Vision"
+        notes = []
+        
+        for cat, stats in category_scores.items():
+            accuracy = stats["correct"] / stats["total"] if stats['total'] else 0
+            
+            if cat == "red-green" and accuracy < 0.6:
+                result_type = "Red-Green Color Blindness"
+                notes.append("Low accuracy in red-green discrimination.")
+            elif cat == "blue-yellow" and accuracy < 0.6:
+                result_type = "Blue-Yellow Color Blindness"
+                notes.append("Low accuracy in blue-yellow discrimination.")
+            elif cat == "control" and accuracy < 0.5:
+                result_type = "Possible Total Color Blindness"
+                notes.append("Even control questions were often incorrect.")
 
         # Update result
         quiz_result.score = score
         quiz_result.result_type = result_type
+        quiz_result.category_breakdown = category_scores
         quiz_result.save()
 
         return JsonResponse({
             "message": "Quiz submitted successfully",
             "score": score,
-            "result_type": result_type
+            "result_type": result_type,
+            "details": category_scores,
+            "notes": notes
         })
 
     return render(request, "Blindness_Test/quiz.html")

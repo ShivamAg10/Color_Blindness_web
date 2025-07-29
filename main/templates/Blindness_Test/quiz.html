@@ -218,84 +218,96 @@
         question: "What number do you see in this Ishihara plate?",
         image: "{% static 'Image/num_12.png' %}",
         options: ["12", "8", "9", "3"],
-        correct: "12"
+        correct: "12",
+        category: "control"
       },
       {
         type: "image",
         question: "Identify the number in this image.",
         image: "{% static 'Image/Red_Green/num_8.png' %}",
         options: ["6", "3", "5", "8"],
-        correct: "8"
+        correct: "8",
+        category: "red-green"
       },
       {
         type: "image",
         question: "Identify the number in this image.",
         image: "{% static 'Image/Red_Green/num_6.png' %}",
         options: ["6", "4", "5", "8"],
-        correct: "6"
+        correct: "6",
+        category: "red-green"
       },
       {
         type: "image",
         question: "Identify the number in this image.",
         image: "{% static 'Image/Red_Green/num_29.png' %}",
         options: ["59", "24", "29", "70"],
-        correct: "29"
+        correct: "29",
+        category: "red-green"
       },
       {
         type: "image",
         question: "Identify the number in this image.",
         image: "{% static 'Image/Red_Green/num_5.png' %}",
         options: ["5", "2", "9", "4"],
-        correct: "5"
+        correct: "5",
+        category: "red-green"
       },
       {
         type: "image",
         question: "Identify the number in this image.",
         image: "{% static 'Image/Red_Green/num_3.png' %}",
         options: ["5", "3", "9", "4"],
-        correct: "3"
+        correct: "3",
+        category: "red-green"
       },
       {
         type: "image",
         question: "Identify the number in this image.",
         image: "{% static 'Image/Red_Green/num_15.png' %}",
         options: ["15", "13", "17", "14"],
-        correct: "15"
+        correct: "15",
+        category: "red-green"
       },
       {
         type: "image",
         question: "Identify the number in this image.",
         image: "{% static 'Image/Red_Green/num_74.png' %}",
         options: ["25", "73", "74", "21"],
-        correct: "74"
+        correct: "74",
+        category: "red-green"
       },
       {
         type: "image",
         question: "Identify the number in this image.",
         image: "{% static 'Image/Red_Green/num_2.png' %}",
         options: ["2", "7", "3", "nothing"],
-        correct: "2"
+        correct: "2",
+        category: "red-green"
       },
       {
         type: "image",
         question: "Identify the number in this image.",
         image: "{% static 'Image/Red_Green/num_6_1.png' %}",
         options: ["6", "4", "5", "nothing"],
-        correct: "6"
+        correct: "6",
+        category: "red-green"
       },
       {
         type: "image",
         question: "Identify the number in this image.",
-        image: "{% static 'Image/Red_Green/num_74.png' %}",
+        image: "{% static 'Image/Blue_Yellow/num_97.png' %}",
         options: ["74", "79", "97", "nothing"],
-        correct: "74"
+        correct: "97",
+        category: "blue-yellow"
       },
       {
         type: "image",
         question: "Identify the number in this image.",
         image: "{% static 'Image/Red_Green/num_45.png' %}",
         options: ["45", "55", "75", "nothing"],
-        correct: "45"
+        correct: "45",
+        category: "red-green"
       },
     ];
 
@@ -337,7 +349,8 @@
       userAnswers.push({
         question : q.question,
         selected : selected,
-        correct : correct
+        correct : correct,
+        category: q.category
       });
 
       if (selected === correct) score++;
@@ -359,10 +372,24 @@
       })
       .then(response => response.json())
       .then(data => {
+        let breakdownHTML = "<h3>Category-wise breakdown</h3><ul style='list-style:none;padding:0;'>";
+        for (const [cat,stats] of Object.entries(data.details)){
+          const accuracy = ((stats.correct / stats.total) * 100).toFixed(1);
+          breakdownHTML += `<li><strong>${cat.replace("-", " ").toUpperCase()}</strong>: ${stats.correct}/ ${stats.total} correct (${accuracy}%)</li>`
+        }
+        breakdownHTML += "</ul>";
+
+        let notesHTML = "";
+        if (data.notes && data.notes.length > 0){
+          notesHTML = "<p><strong>Notes:</strong><br>" + data.notes.join("<br>") + "</p>";
+        }
+
         document.getElementById("quiz").innerHTML = `
         <h2>✅ Test Completed</h2>
         <p class="result">Your Score: ${data.score} / ${quizData.length}</p>
         <p>Result Type: <strong>${data.result_type}</strong></p>
+        ${breakdownHTML}
+        ${notesHTML}
         <p>Note: This is not a medical diagnosis. If you suspect color vision issues, consult an eye care specialist.</p>
         <a href="/" class="next-btn">Back to Home</a>
         `;

@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.postgres.fields import JSONField
 
 class QuizResult(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -7,6 +8,7 @@ class QuizResult(models.Model):
     total_questions = models.IntegerField()
     result_type = models.CharField(max_length=100)  # e.g. 'Normal', 'Deuteranopia'
     submitted_at = models.DateTimeField(auto_now_add=True)
+    category_breakdown = models.JSONField(default=dict)
 
     def __str__(self):
         return f"{self.user.username} - {self.result_type} ({self.score}/{self.total_questions})"
