@@ -5,7 +5,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ColourCue</title>
+  <title>ColorCue</title>
   <style>
     * {
       box-sizing: border-box;
@@ -54,7 +54,13 @@
     }
 
     .nav-links a:hover {
-      color: #ffd700;
+      /*color: #ffd700;*/
+      color: #cccccc;
+    }
+
+    .nav_img{
+      width: 100px;
+      height: 50px;
     }
 
     /* Hero Section */
@@ -203,7 +209,7 @@
 }
 
 .testimonial-card h4 {
-  color: #004d7a;
+  color: black;
   font-weight: 600;
   font-size: 1rem;
 }
@@ -228,7 +234,7 @@
 }
 
 .access-card h3 {
-  color: #004d7a;
+  color: black;
   font-size: 1.2rem;
   margin-bottom: 10px;
 }
@@ -240,7 +246,7 @@
 }
 
 .download-btn {
-  background-color: #004d7a;
+  background-color: black;
   color: white;
   padding: 12px 24px;
   border-radius: 30px;
@@ -251,22 +257,24 @@
 }
 
 .download-btn:hover {
-  background-color: #00385a;
+  background-color: white;
+  color: black;
+  border: 1px solid black;
 }
 
 .download-btn.secondary {
   background-color: #ffffff;
-  color: #004d7a;
-  border: 2px solid #004d7a;
+  color: black;
+  border: 2px solid black;
 }
 
 .download-btn.secondary:hover {
   background-color: #f0f0f0;
 }
 
-.nav_img{
-  width: 100px;
-  height: 50px;
+.qr-img{
+  width: 300px;
+  height: 300px;
 }
   </style>
 </head>
@@ -279,7 +287,12 @@
     <ul class="nav-links" id="navLinks">
       <li><a href="">Home</a></li>
       <li><a href="/Blindness_Test">Test</a></li>
-      <li><a href="/object">Representation</a></li>
+      {% if user.is_authenticated %}
+      <a href="https://bejewelled-gumption-919b9b.netlify.app/color-detector">Representation</a>
+      {% else %}
+        <a href="{% url 'login' %}">Representation</a>
+      {% endif %}
+      <li><a href="/community">Community</a></li>
       {% if user.is_authenticated %}
         <li><a href="{% url 'logout' %}">Logout</a></li>
       {% else %}
@@ -295,7 +308,7 @@
     <p>Our app helps you experience color the way you were meant to — with clarity, accuracy, and accessibility for all types of color vision.</p>
     <div class="hero-buttons">
       <a href="/Blindness_Test" class="btn-primary">Try the Test</a>
-      <a href="/object" class="btn-secondary">Learn More</a>
+      <a href="https://bejewelled-gumption-919b9b.netlify.app/color-detector" class="btn-secondary">Learn More</a>
     </div>
   </section>
 
@@ -368,23 +381,14 @@
       Color blindness can impact daily tasks like choosing clothes, reading maps, interpreting charts, or even driving — but with the right tools and awareness, many of these challenges can be overcome.
     </p>
 
-    <a href="https://my.clevelandclinic.org/health/diseases/11604-color-blindness" style="
-      display: inline-block;
-      background-color: #004d7a;
-      color: white;
-      padding: 10px 20px;
-      border-radius: 25px;
-      text-decoration: none;
-      font-weight: 500;
-      transition: background 0.3s ease;
-    ">Read More</a>
+    <a href="https://my.clevelandclinic.org/health/diseases/11604-color-blindness" class="download-btn">Read More</a>
   </div>
 </section>
 
     <!-- App Preview / Demo Section -->
 <section id="preview" style="background-color: #f8f9fa; padding: 80px 20px;">
   <div style="max-width: 1100px; margin: 0 auto; text-align: center;">
-    <h2 style="color: #004d7a; font-size: 2.5rem; margin-bottom: 20px;">App Preview & Demo</h2>
+    <h2 style="color: black; font-size: 2.5rem; margin-bottom: 20px;">App Preview & Demo</h2>
     <p style="color: #333; font-size: 1.1rem; margin-bottom: 40px;">
       Experience how our app helps simulate and correct vision for various types of color blindness. See the world through clearer eyes with our real-time filters and tools.
     </p>
@@ -392,18 +396,18 @@
     <!-- Before vs After Image Comparison -->
     <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; align-items: center; margin-bottom: 50px;">
       <div>
-        <h4 style="color: #004d7a;">Before</h4>
+        <h4 style="color: black;">Before</h4>
         <img src="{% static 'Image/HomePage/before.png' %}" alt="Original View" style="max-width: 300px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);" />
       </div>
       <div>
-        <h4 style="color: #004d7a;">After (Protanopia Filter)</h4>
+        <h4 style="color: black;">After (Protanopia Filter)</h4>
         <img src="{% static 'Image/HomePage/after.png' %}" alt="Filtered View" style="max-width: 300px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);" />
       </div>
     </div>
 
     <!-- Explainer Video (YouTube or Local Placeholder) -->
     <div style="max-width: 700px; margin: 0 auto;">
-      <h4 style="color: #004d7a; margin-bottom: 15px;">Watch How It Works</h4>
+      <h4 style="color: black; margin-bottom: 15px;">Watch How It Works</h4>
       <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
         <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" 
                 title="Color Blindness App Demo" 
@@ -419,7 +423,7 @@
 <!-- Testimonials / Use Cases Section -->
 <section id="testimonials" style="background-color: #f8f9fa; padding: 80px 20px;">
   <div style="max-width: 1000px; margin: 0 auto; text-align: center;">
-    <h2 style="color: #004d7a; font-size: 2.5rem; margin-bottom: 40px;">What Our Users Say</h2>
+    <h2 style="color: black; font-size: 2.5rem; margin-bottom: 40px;">What Our Users Say</h2>
 
     <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
       
@@ -448,7 +452,7 @@
 <!-- Accessibility and Inclusivity Section -->
 <section id="accessibility" style="background-color: #f8f9fa; padding: 80px 20px;">
   <div style="max-width: 1000px; margin: 0 auto; text-align: center;">
-    <h2 style="color: #004d7a; font-size: 2.5rem; margin-bottom: 30px;">
+    <h2 style="color: black; font-size: 2.5rem; margin-bottom: 30px;">
       Accessibility for Everyone
     </h2>
 
@@ -481,7 +485,7 @@
 <!-- Download / Access Section -->
 <section id="download" style="background-color: #f8f9fa; padding: 80px 20px;">
   <div style="max-width: 900px; margin: 0 auto; text-align: center;">
-    <h2 style="color: #004d7a; font-size: 2.5rem; margin-bottom: 20px;">Get the App</h2>
+    <h2 style="color: black; font-size: 2.5rem; margin-bottom: 20px;">Get the App</h2>
     <p style="color: #333; font-size: 1.1rem; margin-bottom: 40px;">
       Start improving your color perception today. Available on multiple platforms for everyone.
     </p>
@@ -506,6 +510,10 @@
       {% comment %} <a href="#!" class="download-btn secondary">
         🧑‍💻 View on GitHub
       </a> {% endcomment %}
+    </div>
+    <div>
+      <img src="{% static 'Image/HomePage/qr.jpg' %}" alt="qr" class="qr-img">
+      <p style="font-size:1.25rem;"><strong>Download now and see what you are missing</strong></p>
     </div>
   </div>
 </section>

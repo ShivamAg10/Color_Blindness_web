@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'Blindness_Test',
     'home',
     'objec',
+    'community',
 ]
 
 MIDDLEWARE = [

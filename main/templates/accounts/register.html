@@ -153,13 +153,13 @@
 </body>
 </html> {% endcomment %}
 
-
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ColourCue App</title>
+  <title>ColorCue</title>
   <style>
     body {
       margin: 0;
@@ -170,35 +170,45 @@
 
     /* Navbar */
     nav {
-      background-color: #004d7a;
-      padding: 15px 20px;
+      background-color: black;
+      padding: 1rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      flex-wrap: wrap;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
 
-    .nav-logo {
-      color: white;
+    .logo {
       font-size: 1.5rem;
+      color: #fff;
       font-weight: bold;
-      text-decoration: none;
     }
 
     .nav-links {
+      font-size: 1.05rem;
+      list-style: none;
       display: flex;
-      gap: 20px;
+      gap: 1.5rem;
     }
 
     .nav-links a {
-      color: white;
       text-decoration: none;
+      color: #ffffff;
       font-weight: 500;
-      transition: color 0.3s;
+      transition: color 0.3s ease;
     }
 
     .nav-links a:hover {
-      color: #ffd700;
+      /*color: #ffd700;*/
+      color: #cccccc;
+    }
+
+    .nav_img{
+      width: 100px;
+      height: 50px;
     }
 
     .menu-toggle {
@@ -246,7 +256,7 @@
     }
 
     .signup-container h2 {
-      color: #004d7a;
+      color: black;
       margin-bottom: 20px;
       font-size: 2rem;
     }
@@ -272,7 +282,7 @@
     .signup-btn {
       width: 100%;
       padding: 12px;
-      background-color: #004d7a;
+      background-color: black;
       color: white;
       border: none;
       border-radius: 8px;
@@ -283,7 +293,9 @@
     }
 
     .signup-btn:hover {
-      background-color: #00385a;
+      background-color: white;
+      color: black;
+      border: 1px solid black;
     }
 
     .signup-links {
@@ -292,7 +304,7 @@
     }
 
     .signup-links a {
-      color: #004d7a;
+      color: black;
       text-decoration: none;
     }
 
@@ -305,7 +317,7 @@
 
   <!-- Navbar -->
   <nav>
-    <a href="index.html" class="nav-logo">ColourCue App</a>
+    <img class="nav_img" src="{% static 'Image/HomePage/logo_nav.jpg' %}" alt="">
     <div class="menu-toggle" onclick="toggleMenu()">
       <div></div>
       <div></div>
@@ -314,7 +326,12 @@
     <div class="nav-links" id="navLinks">
       <a href="/">Home</a>
       <a href="/Blindness_Test">Test</a>
-      <a href="/object">Representation</a>
+      {% if user.is_authenticated %}
+      <a href="https://bejewelled-gumption-919b9b.netlify.app/color-detector">Representation</a>
+      {% else %}
+        <a href="{% url 'login' %}">Representation</a>
+      {% endif %}
+      <a href="/community">Community</a>
       {% if user.is_authenticated %}
         <a href="{% url 'logout' %}">Logout</a>
       {% else %}
@@ -341,38 +358,6 @@
       Already have an account? <a href="/Accounts/Login">Login</a>
     </div>
   </div>
-<!-- Footer Section -->
-<footer style="background-color: #e6ecf0; color: #333; padding: 50px 20px; text-align: center;">
-  <div style="max-width: 1000px; margin: 0 auto;">
-
-    <!-- Contact Info -->
-    <p style="margin-bottom: 10px;">
-      📧 Contact: <a href="mailto:support@colourcueapp.com" style="color: #004d7a; text-decoration: none;">support@colourcueapp.com</a>
-    </p>
-
-    <!-- Developer Credits -->
-    <p style="margin-bottom: 10px;">
-      👨‍💻 Made with ❤️ by Team ColourCue @ Rajiv International School
-    </p>
-
-    <!-- Links -->
-    <div style="margin: 20px 0;">
-      <a href="#!" style="margin: 0 10px; color: #004d7a; text-decoration: none;">Privacy Policy</a> |
-      <a href="#!" style="margin: 0 10px; color: #004d7a; text-decoration: none;">FAQs</a>
-    </div>
-
-    <!-- Social Media -->
-    <div style="margin-bottom: 20px;">
-      <a href="#!" style="margin: 0 10px; color: #004d7a; font-size: 1.2rem;">🌐</a>
-      <a href="#!" style="margin: 0 10px; color: #004d7a; font-size: 1.2rem;">🐦</a>
-      <a href="#!" style="margin: 0 10px; color: #004d7a; font-size: 1.2rem;">📘</a>
-      <a href="#!" style="margin: 0 10px; color: #004d7a; font-size: 1.2rem;">📸</a>
-    </div>
-
-    <!-- Copyright -->
-    <p style="font-size: 0.9rem;">© 2025 ColourCue App. All rights reserved.</p>
-  </div>
-</footer>
 
   <script>
     function toggleMenu() {
